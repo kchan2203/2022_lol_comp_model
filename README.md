@@ -1,5 +1,7 @@
 # 2022 LOL Competitive Match Prediction Model
 
+Our exploratory data analysis on this dataset can be found [here](https://kchan2203.github.io/2022_lol_comp_data_analysis/).
+
 ## Problem Identification
 Our prediction problem here is classification because the champion a player will play is qualitiative variable. Additionally, since there are 151 champions that a player can pick, this will be a multiclass classiciation. The response variable will be 'champion' because we want to predict the champion picked based on certain metrics. We will analyze the model using accuracy. There really isn't a false positive or negative in our model because it uses multiclass classification, so we cannot use F1-score, recall, or precision. Therefore, accuracy is our best bet.
 
