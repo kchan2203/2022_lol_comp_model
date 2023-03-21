@@ -14,3 +14,17 @@ We engineered some additional features from the dataset to improve model's accur
 For the model, we stuck to the decision tree because it seemed pretty reliable and didnt seem to overfit to the data originally because the test and training accuracy were similar. The hyperparameters that ended up performing the best after grid searching were 16 max_depth, 100 min_samples_split, and gini criterion. 
 We planned to tune max_depth, min_samples_split, and model criterion on our decision trees. Obviously, max_depth is a good hyperparameter to tune because if the deeper the tree goes, it will be able to split groups more effectively and choose a wider variety of champions. However, if the depth is too high, then the model could potentially be overfitting to the dataset. For min_samples_split, it is a hyperparameter that determines when a node is allowed to split. A lower number could split a lot more nodes and differentiate between champions, but a higher split could help us generalize better to the overall dataset. Finally, criterion determines the quality of the split. It was added to see whether a quality of a split could improve the accuracy
 Overall, it was an overall improvement because our test accuracy was 2 times better compared to original baseline model. 20% vs 10%
+
+
+## Fairness Analysis
+In addition to simply testing our accuracy on test data and training data, we also need to analyze the fairness of our model. One way we will judge how fair our model is, is by testing it on different groups of data. The two groups we will seperate our data into are
+- Group X: The stats for every region's leagues except for China's league, the LPL.
+- Group Y: The stats for only China's league, the LPL.
+We chose these groups because the LPL is missing a lot of data, which hindered our ability to choose specific columns that could have increased our model's performance. However, the LPL is also a large majority of Tier 1 league games, so we can not just get rid of them because they have a lot of missing values. 
+
+The evaluation metric we will be using to compare these groups and our fairness will be the accuracy of our model when run on them. Our null hypothesis and alternative hyptohesis are:
+- Null Hypothesis: The model is fair. Its accuracy for predicting champions in the LPL(China) vs other regions are roughly the same, and any differences are due to random chance.
+- Alternative Hypothesis: Our model is unfair, so its accuracy for predicting champions in the LPL is higher to other region and the difference is significant. We were already fitting our model for China because the model doesn't include features that China does not have, so it is possible that it predict China better
+
+The test statistic we used was the accuracy of our model on the data only including the China's league games and we decided to set the significance value we were looking for to 0.01. Our p_value that we we found was 0.002. Since we set our signfiicance level to 0.01, we fail to reject the null hypothesis that the model is fair at predicting champions for chinese leagues vs non-chinese leagues. This means that it seems likely that our model is better at predicting what Champions a player in the Chinese league would play, compared to a non-Chinese player.
+
