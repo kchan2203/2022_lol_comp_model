@@ -1,2 +1,7 @@
-# 2022_lol_comp_model
-Project for DSC80 (Practice and Appliance of Data Science
+# 2022 LOL Competitive Match Prediction Model
+
+## Problem Identification
+Our prediction problem here is classification because the champion a player will play is qualitiative variable. Additionally, since there are 151 champions that a player can pick, this will be a multiclass classiciation. The response variable will be 'champion' because we want to predict the champion picked based on certain metrics. We will analyze the model using accuracy. There really isn't a false positive or negative in our model because it uses multiclass classification, so we cannot use F1-score, recall, or precision. Therefore, accuracy is our best bet.
+
+## Baseline Model
+Our model consists of a column transformer and a decision tree classifer with depth of 6. The features used are 'patch'(ordinal), 'playername'(ordinal), 'dpm'(quantitative), and 'damageshare'(quantitative). The patch and playername are One Hot Encoded with dropping the first column and ignoring unknown values. DPM and damageshare are passed through as is. Our testing accuracy was 11.5% and our training accuracy was 12.1%. Though it may seem like a "bad" model, I believe it is good. There are 151 champions at the time this dataset was created. If we were to guess at random, we would be correct on average 0.7% of the time. However, we are getting around 11% right with our current basic pipeline, which is a 15 times better! However, it can definitely be improved by feature engineering special stats that can differentiate between different champions better, such as gold and vision.
